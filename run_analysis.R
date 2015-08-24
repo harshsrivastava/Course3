@@ -67,6 +67,8 @@ for (i in seq_along(extract$main.activity))
 
 ##split the data based on activity and subject variables
 library(reshape2)
-split1 <- split(extract,id="main.activity","main.subject")
+split1 <- melt(extract,id=c("main.activity","main.subject"))
 ##tapply(split1$value,split1$variable,mean)
-write.table(tapply(split1$value,split1$variable,mean),"results.txt")
+##write.table(tapply(split1$value,split1$variable,mean),"results.txt")
+write.table(dcast(split1, split1$main.activity + split1$main.subject ~ variable, mean),"ActualResults.txt")
+
