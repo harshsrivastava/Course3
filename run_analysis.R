@@ -15,7 +15,7 @@ train_subject <- read.table("train/subject_train.txt")
 train_subject$subject <- train_subject$V1
 train_activity <- read.table("train/y_train.txt") 
 train_activity$activity <- train_activity$V1
-train <- read.table("train/X_train.txt")  
+train <- read.table("train/X_train.txt") 
 
 ##Complete test merge
 testcheck <- cbind(test,subject = test_subject$subject,activity = test_activity$activity)
@@ -68,7 +68,6 @@ for (i in seq_along(extract$main.activity))
 ##split the data based on activity and subject variables
 library(reshape2)
 split1 <- melt(extract,id=c("main.activity","main.subject"))
-##tapply(split1$value,split1$variable,mean)
-##write.table(tapply(split1$value,split1$variable,mean),"results.txt")
-write.table(dcast(split1, split1$main.activity + split1$main.subject ~ variable, mean),"ActualResults.txt")
 
+##write the tidy data set to an output file
+write.table(dcast(split1, split1$main.activity + split1$main.subject ~ variable, mean),"TidyDataSet.txt")
